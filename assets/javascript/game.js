@@ -1,6 +1,7 @@
 // VARIABLES ======================================================
 
 var battleActive = false;
+var userCharacterChosen = false;
 
 var enemiesRemaining = ""
 
@@ -14,15 +15,15 @@ var players = [
         life: 150,
         attack: 7,
         defense: 8,
-        weapon: "clarinet",
+        weapon: "his clarinet",
     },
     {
         name: "Adam",
         imgSrc: "assets/images/Adam.jpg",
-        life: 100,
+        life: 120,
         attack: 6,
         defense: 20, 
-        weapon: "rolls",
+        weapon: "rolls that his mom made",
     }, 
     {
         name: "Micah",
@@ -30,7 +31,7 @@ var players = [
         life: 140,
         attack: 5,
         defense: 10,
-        weapon: "microphone",
+        weapon: "his trusty Twins baseball cap",
     },
     {
         name: "Phil", 
@@ -38,7 +39,7 @@ var players = [
         life: 200, 
         attack: 6,
         defense: 15,
-        weapon: "butter",
+        weapon: "his butter blaster",
     }
     ];
 
@@ -47,7 +48,7 @@ var players = [
 playersLineup();
 
 function playersLineup() {
-
+    $("#instructions").text("Choose a character")
     for (var i=0; i < players.length; i++){
         var characterLineup = $("<div>");
         characterLineup.addClass("lineup-container");
@@ -64,6 +65,11 @@ function playersLineup() {
         $("#character-lineup").append(characterLineup)
     }   
 }
+
+
+
+
+
 // This on.click function listens for the user's choice of character.
 
 $(document).on("click", ".lineup-container", function(){
@@ -105,6 +111,7 @@ $(document).on("click", ".lineup-container", function(){
             )   
             $("#enemies").append(enemyCharacter)
             $("#character-lineup").empty()
+            $("#instructions").text("Now choose an enemy to fight.")
          }
     }   
 
@@ -115,13 +122,14 @@ $(document).on("click", ".lineup-container", function(){
 
 $(document).on("click", ".enemy", function(){
     if (battleActive){
-        console.log(battleActive)
         console.log("Duplicate Enemy!!!")
-        $("#game-over").text("You can't fight two enemies at once!")  // <---- WHY WON'T THIS WORK RIGHT?!
+        $("#enemy-attack").empty();
+        $("#user-attack").empty();
+        $("#user-attack").text("You can't fight two enemies at once! Focus on fighting " + chosenEnemy.name + " right now!")  // <---- WHY WON'T THIS WORK RIGHT?!  THE TEXT DISPLAYS WHEN THAT ENEMY IS DEFEATED.  WHY?
+        return
     }
-
     chosenEnemy = $(this).attr("value");
-
+    
 // This for loop will move the chosen enemy to the defender div...
 
     for (var i=0; i < players.length; i++){
@@ -142,7 +150,8 @@ $(document).on("click", ".enemy", function(){
 
 //  Finally, we call this function to make a new object for battle. 
             
-            makeDefender(i)        
+            makeDefender(i)  
+            $("#instructions").text("Attack " + players[i].name + " by pushing the attack button!")      
         }            
     }
 })
@@ -158,6 +167,7 @@ function makeUserCharacter(x) {
     }
     console.log("userCharacter: ")
     console.log(userCharacter)
+    userCharacterChosen = true;
 }
 
 function makeDefender(x) {
@@ -182,6 +192,26 @@ function makeDefender(x) {
 // BATTLE SECTION ========================================================
 
 var attackFactor = 1
+
+
+// On.click for user-character instructions.
+
+$(document).on("click", ".user-character", function(){
+    if (userCharacterChosen){
+        $("#user-attack").text("Stop clicking on yourself and focus on fighting " + chosenEnemy.name + "!")
+        $("#enemy-attack").empty()
+    }
+})
+
+$(document).on("click", ".defender", function(){
+    if (userCharacterChosen){
+        $("#user-attack").text("Clicking on " + chosenEnemy.name + " isn't going to do any damage! Press the attack button!")
+        $("#enemy-attack").empty()
+    }
+})
+
+
+
 
 $(document).on("click", "#attack", function(){ 
     if (battleActive) {
@@ -218,6 +248,7 @@ $(document).on("click", "#attack", function(){
 
         else if (chosenEnemy.life <= 0) {
             $("#fight-text").text(chosenEnemy.name + " has been defeated!")
+            $("#instructions").text("Choose your next enemy!") 
             $("#enemy-attack").empty()
             $("#defender").empty()
             battleActive = false;
@@ -228,6 +259,7 @@ $(document).on("click", "#attack", function(){
 
             if (enemiesRemaining === 0){
                 $("#game-over").text("You win the game!")
+                $("#instructions").text("Press the reset button to play again!") 
                 makeResetButton()
                 }
             }
@@ -255,6 +287,7 @@ $(document).on("click", "#attack", function(){
         $("#fight-text").text(userCharacter.name + " was defeated.")
         $("#game-over").text("Game over!")
         makeResetButton();
+        $("#instructions").text("Press the reset button to play again!") 
         battleActive = false;
         }
     }

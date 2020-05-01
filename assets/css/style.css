@@ -1,12 +1,28 @@
+html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
 body {
-    background-color: gray;    
+    background-color: gray;
+    
 } 
 
 header {
     text-align: center;
-    font-size: 24px;
+    font-size: 48px;
     font-weight: bold;
+    border: solid black 5px;
+    margin-bottom: 10px;
 }
+
+#main-content {
+    width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
 
 p {
     padding: 5px;
@@ -15,9 +31,18 @@ p {
 .heading-container {
     clear: both;
     float: left;
-    font-size: 32px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 28px;
     font-weight: bold;
 }
+
+#character-lineup {
+    clear: both;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 
 .lineup-container {
     width: 150px;
@@ -27,6 +52,7 @@ p {
     color: black;
     text-align: center;
     float: left;
+
 }
 
 .user-character {
@@ -48,8 +74,7 @@ p {
     border: 5px solid black;
     background-color: red;
     color: black;
-    text-align: center;
-    
+    text-align: center;    
 }
 
 .defender {
@@ -76,9 +101,23 @@ img {
 #user-character, #enemies, #fight-section, #defender, #user-attack, #enemy-attack, #fight-text, #game-over {
     clear: both;
     float: left;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
+
+#instructions {
+    float: left;
+    margin-left: 10px;
+    margin-top: 5px;
+    font-size: 28px;
+}
+
 
 button {
     clear: both;
     float: left;
+    font-size: 24px;
+    margin-bottom: 10px;
+    border: solid 2px black;
+    
 }
