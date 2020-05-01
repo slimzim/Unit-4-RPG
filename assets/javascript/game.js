@@ -2,6 +2,7 @@
 
 var battleActive = false;
 var userCharacterChosen = false;
+var gameOver = false;
 
 var enemiesRemaining = ""
 
@@ -48,7 +49,7 @@ var players = [
 playersLineup();
 
 function playersLineup() {
-    $("#instructions").text("Choose a character")
+    $("#instructions").text("Choose your character!")
     for (var i=0; i < players.length; i++){
         var characterLineup = $("<div>");
         characterLineup.addClass("lineup-container");
@@ -197,14 +198,14 @@ var attackFactor = 1
 // On.click for user-character instructions.
 
 $(document).on("click", ".user-character", function(){
-    if (userCharacterChosen){
+    if (userCharacterChosen && gameOver === false){
         $("#user-attack").text("Stop clicking on yourself and focus on fighting " + chosenEnemy.name + "!")
         $("#enemy-attack").empty()
     }
 })
 
 $(document).on("click", ".defender", function(){
-    if (userCharacterChosen){
+    if (userCharacterChosen && gameOver === false){
         $("#user-attack").text("Clicking on " + chosenEnemy.name + " isn't going to do any damage! Press the attack button!")
         $("#enemy-attack").empty()
     }
@@ -216,6 +217,10 @@ $(document).on("click", ".defender", function(){
 $(document).on("click", "#attack", function(){ 
     if (battleActive) {
         userAttack();
+    }
+
+    else if (gameOver) {
+        return
     }
 
 // This else statement exists to prevent the attack button from doing anything if there
@@ -260,6 +265,7 @@ $(document).on("click", "#attack", function(){
             if (enemiesRemaining === 0){
                 $("#game-over").text("You win the game!")
                 $("#instructions").text("Press the reset button to play again!") 
+                gameOver = true;
                 makeResetButton()
                 }
             }
@@ -284,11 +290,13 @@ $(document).on("click", "#attack", function(){
 // reset button appears via the makeResetButton.
 
     else if (userCharacter.life <= 0) {
+        $("#enemy-attack").text(chosenEnemy.name + " fought back with " + chosenEnemy.weapon + " and caused " + chosenEnemy.defense + " damage!")
         $("#fight-text").text(userCharacter.name + " was defeated.")
         $("#game-over").text("Game over!")
         makeResetButton();
         $("#instructions").text("Press the reset button to play again!") 
         battleActive = false;
+        gameOver = true;
         }
     }
 
@@ -316,4 +324,5 @@ $(document).on("click", "#attack", function(){
         $("#enemies").empty();
         battleActive = false;
         attackFactor = 1;
+        gameOver = false;
     })

@@ -10,10 +10,11 @@ body {
 
 header {
     text-align: center;
-    font-size: 48px;
+    font-size: 32px;
     font-weight: bold;
     border: solid black 5px;
     margin-bottom: 10px;
+    padding: 10px;
 }
 
 #main-content {
@@ -21,8 +22,6 @@ header {
     margin-left: auto;
     margin-right: auto;
 }
-
-
 
 p {
     padding: 5px;
@@ -33,7 +32,7 @@ p {
     float: left;
     margin-top: 5px;
     margin-bottom: 5px;
-    font-size: 28px;
+    font-size: 18px;
     font-weight: bold;
 }
 
@@ -107,9 +106,9 @@ img {
 
 #instructions {
     float: left;
-    margin-left: 10px;
+    margin-left: 5px;
     margin-top: 5px;
-    font-size: 28px;
+    font-size: 18px;
 }
 
 
