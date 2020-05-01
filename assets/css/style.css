@@ -8,14 +8,15 @@ header {
     font-weight: bold;
 }
 
-.lineup {
-    width: 200px;
-    height: 200px;
-    
-}
-
 p {
     padding: 5px;
+}
+
+.heading-container {
+    clear: both;
+    float: left;
+    font-size: 32px;
+    font-weight: bold;
 }
 
 .lineup-container {
@@ -40,8 +41,7 @@ p {
 
 }
 
-.enemies {
-    clear: both;
+.enemy {
     float: left;
     width: 150px;
     height: 150px;
@@ -52,7 +52,16 @@ p {
     
 }
 
-
+.defender {
+    float: left;
+    width: 150px;
+    height: 150px;
+    border: 5px solid red;
+    background-color: black;
+    color: white;
+    text-align: center;
+    
+}
 
 img {
     display: block;
@@ -64,7 +73,7 @@ img {
     width: 100px;
 }
 
-#user-character, #enemies-to-attack, #fight-section, #defender, #your-attack, #enemy-attack{
+#user-character, #enemies, #fight-section, #defender, #user-attack, #enemy-attack, #fight-text, #game-over {
     clear: both;
     float: left;
 }
