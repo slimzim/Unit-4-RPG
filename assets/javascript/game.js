@@ -13,9 +13,9 @@ var players = [
     {
         name: "JZ",
         imgSrc: "assets/images/JZ.jpg",
-        life: 150,
-        attack: 7,
-        defense: 8,
+        life: 160,
+        attack: 5,
+        defense: 10,
         weapon: "his clarinet",
     },
     {
@@ -31,15 +31,15 @@ var players = [
         imgSrc: "assets/images/Micah.jpg",
         life: 140,
         attack: 5,
-        defense: 10,
+        defense: 14,
         weapon: "his trusty Twins baseball cap",
     },
     {
         name: "Phil", 
         imgSrc: "assets/images/Phil.jpg",
-        life: 200, 
-        attack: 6,
-        defense: 15,
+        life: 170, 
+        attack: 4,
+        defense: 12,
         weapon: "his butter blaster",
     }
     ];
@@ -81,12 +81,12 @@ $(document).on("click", ".lineup-container", function(){
     for (var i=0; i < players.length; i++){
         if (parseInt(chosenCharacter) === i) {
             userCharacter = $("<div>")
-            // $(userCharacter).attr("id", "user-life")  // <-------- MAKES ENTIRE DIV GET OVERWRITTEN
             userCharacter.addClass("user-character")
+            userCharacter.append("<span></span>")
             userCharacter.html("" +
             "<p>" + players[i].name + "</p>" +
             "<img src=" + players[i].imgSrc + ">" +
-            "<p><span id=\"#user-life\">" + players[i].life + "</span></p>"  // <------- DOES NOT WORK, CANNOT FIGURE OUT WHY
+            "<p><span id=\"user-life\">" + players[i].life + "</span></p>"  // <------- DOES NOT WORK, CANNOT FIGURE OUT WHY
             )
             $("#user-character").append(userCharacter)
             $("#character-lineup").empty()
@@ -140,7 +140,7 @@ $(document).on("click", ".enemy", function(){
             chosenEnemy.html("" +
             "<p>" + players[i].name + "</p>" +
             "<img src=" + players[i].imgSrc + ">" +
-            "<p>" + players[i].life + "</p>"
+            "<p><span id=\"enemy-life\">" + players[i].life + "</span></p>"
             )
             $("#defender").append(chosenEnemy)
 
@@ -240,6 +240,7 @@ $(document).on("click", "#attack", function(){
         chosenEnemy.life = chosenEnemy.life -= (userCharacter.attack * attackFactor)
         console.log("Enemy Life:")
         console.log(chosenEnemy.life)
+        $("#enemy-life").text(chosenEnemy.life)
         $("#user-attack").text(userCharacter.name + " attacked " + chosenEnemy.name + " with " + userCharacter.weapon + " and caused " + (userCharacter.attack * attackFactor) + " damage!")
             attackFactor++;
         
@@ -283,7 +284,7 @@ $(document).on("click", "#attack", function(){
 
     if (userCharacter.life > 0) {
         $("#enemy-attack").text(chosenEnemy.name + " fought back with " + chosenEnemy.weapon + " and caused " + chosenEnemy.defense + " damage!")
-        $("#user-life").text(userCharacter.life) // <------- CURRENTLY NO DESTINATION
+        $("#user-life").text(userCharacter.life)
         }
 
 // If the user's character goes below zero hit points, the game is over, and the 
@@ -291,6 +292,7 @@ $(document).on("click", "#attack", function(){
 
     else if (userCharacter.life <= 0) {
         $("#enemy-attack").text(chosenEnemy.name + " fought back with " + chosenEnemy.weapon + " and caused " + chosenEnemy.defense + " damage!")
+        $("#user-life").text(userCharacter.life)
         $("#fight-text").text(userCharacter.name + " was defeated.")
         $("#game-over").text("Game over!")
         makeResetButton();
