@@ -77,7 +77,6 @@ $(document).on("click", ".lineup-container", function(){
         if (parseInt(chosenCharacter) === i) {
             userCharacter = $("<div>")
             userCharacter.addClass("user-character")
-            userCharacter.append("<span></span>")
             userCharacter.html("" +
             "<p>" + players[i].name + "</p>" +
             "<img src=" + players[i].imgSrc + ">" +
