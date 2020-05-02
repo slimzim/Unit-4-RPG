@@ -3,7 +3,6 @@
 var battleActive = false;
 var userCharacterChosen = false;
 var gameOver = false;
-
 var enemiesRemaining = ""
 
 // The players array holds 4 objects.
@@ -67,10 +66,6 @@ function playersLineup() {
     }   
 }
 
-
-
-
-
 // This on.click function listens for the user's choice of character.
 
 $(document).on("click", ".lineup-container", function(){
@@ -86,21 +81,20 @@ $(document).on("click", ".lineup-container", function(){
             userCharacter.html("" +
             "<p>" + players[i].name + "</p>" +
             "<img src=" + players[i].imgSrc + ">" +
-            "<p><span id=\"user-life\">" + players[i].life + "</span></p>"  // <------- DOES NOT WORK, CANNOT FIGURE OUT WHY
+            "<p><span id=\"user-life\">" + players[i].life + "</span></p>"
             )
             $("#user-character").append(userCharacter)
             $("#character-lineup").empty()
 
 // This if statement concludes by calling a global function to create a new object for battle:
+            
             makeUserCharacter(i)
-       
-
         }
 
 // The else statement makes containers for all the other characters
 // and moves them to the "enemies" div.
 
-    else {
+        else {
             enemiesRemaining++;
             enemyCharacter = $("<div>")
             enemyCharacter.addClass("enemy")
@@ -115,7 +109,6 @@ $(document).on("click", ".lineup-container", function(){
             $("#instructions").text("Now choose an enemy to fight.")
          }
     }   
-
 })
     
 // This on.click function listens for the user's choice of 
@@ -137,12 +130,13 @@ $(document).on("click", ".enemy", function(){
         if (parseInt(chosenEnemy) === i){
             chosenEnemy = $("<div>")
             chosenEnemy.addClass("defender")
-            chosenEnemy.html("" +
+            chosenEnemy.html(
             "<p>" + players[i].name + "</p>" +
             "<img src=" + players[i].imgSrc + ">" +
             "<p><span id=\"enemy-life\">" + players[i].life + "</span></p>"
             )
             $("#defender").append(chosenEnemy)
+            $("#instructions").text("Attack " + players[i].name + " by pushing the attack button!")
 
 // ... and remove the chosen enemy from the enemies div.
 
@@ -151,8 +145,7 @@ $(document).on("click", ".enemy", function(){
 
 //  Finally, we call this function to make a new object for battle. 
             
-            makeDefender(i)  
-            $("#instructions").text("Attack " + players[i].name + " by pushing the attack button!")      
+            makeDefender(i)               
         }            
     }
 })
@@ -185,7 +178,6 @@ function makeDefender(x) {
         $("#user-attack").empty()
         $("#fight-text").empty()
     battleActive = true;
-
 }
 
 // =======================================================================
@@ -194,8 +186,7 @@ function makeDefender(x) {
 
 var attackFactor = 1
 
-
-// On.click for user-character instructions.
+// These onClicks respond to clicks in the wrong places.  :)
 
 $(document).on("click", ".user-character", function(){
     if (userCharacterChosen && gameOver === false){
@@ -211,8 +202,7 @@ $(document).on("click", ".defender", function(){
     }
 })
 
-
-
+// This makes the attack button launches the attack function IF the game is in process.
 
 $(document).on("click", "#attack", function(){ 
     if (battleActive) {
@@ -227,7 +217,7 @@ $(document).on("click", "#attack", function(){
 // is no defender in the devender div.
 
     else {
-        $("#fight-text").text("There's no defender right now, chill out!")
+        $("#fight-text").text("There's no defender right now!")
     }
 })
 
